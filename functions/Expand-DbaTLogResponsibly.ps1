@@ -505,10 +505,19 @@ Expand-DbaTLogResponsibly -SqlInstance SqlInstance -Database db1,db2 -TargetLogS
         }
     }
 	
+<<<<<<< HEAD
     END {
         $server.ConnectionContext.Disconnect()
         Write-Message -Level Verbose -Message "Process finished $((Get-Date) - ($initialTime))"
         Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Expand-SqlTLogResponsibly
     }
+=======
+	END
+	{
+		$server.ConnectionContext.Disconnect()
+		Write-Output "Process finished $((Get-Date) - ($initialTime))"
+		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Expand-SqlTLogResponsibly
+	}
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 }
 

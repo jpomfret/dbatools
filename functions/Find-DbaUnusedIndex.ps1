@@ -276,9 +276,17 @@ function Find-DbaUnusedIndex {
 			Write-Message -Level Output -Message "There are no databases to analyse."
 		}
 	}
+<<<<<<< HEAD
 	end {
 		if (Test-FunctionInterrupt) { return }
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Alias Get-SqlUnusedIndex
+=======
+	
+	END
+	{
+        $server.ConnectionContext.Disconnect()
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Get-SqlUnusedIndex
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }
 

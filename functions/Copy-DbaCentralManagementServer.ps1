@@ -308,7 +308,18 @@ function Copy-DbaCentralManagementServer {
 			Invoke-ParseServerGroup -sourceGroup $store -destinationgroup $toCmStore.DatabaseEngineServerGroup -SwitchServerName $SwitchServerName
 		}
 	}
+<<<<<<< HEAD
 	end {
+=======
+	
+	END
+	{
+		$sourceserver.ConnectionContext.Disconnect()
+		$destserver.ConnectionContext.Disconnect()
+        If ($Pscmdlet.ShouldProcess("console", "Showing finished message")) { 
+            Write-Output "Central Management Server migration finished" 
+        }
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlCentralManagementServer
 	}
 }

@@ -213,8 +213,18 @@ Copies two Collection Sets, Server Activity and Table Usage Analysis, from sqlse
 			}
 		}
 	}
+<<<<<<< HEAD
 	end {
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlDataCollector
+=======
+	
+	end
+	{
+		$sourceserver.ConnectionContext.Disconnect()
+		$destserver.ConnectionContext.Disconnect()
+        If ($Pscmdlet.ShouldProcess("console", "Showing finished message")) { Write-Output "Data Collector migration finished" }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlDataCollector
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }
 

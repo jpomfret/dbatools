@@ -428,6 +428,10 @@ function Copy-DbaDatabaseMail {
 		}
 	}
 	end {
+<<<<<<< HEAD
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlDatabaseMail
+=======
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlDatabaseMail
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

@@ -246,6 +246,7 @@ function Copy-DbaAgentJob {
                     $job.Alter()
                 }
             }
+<<<<<<< HEAD
             $copyJobStatus.Status = "Successful"
             $copyJobStatus
 		}
@@ -253,4 +254,15 @@ function Copy-DbaAgentJob {
 	end {
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlJob
 	}
+=======
+        }
+    }
+
+    END {
+        $sourceServer.ConnectionContext.Disconnect()
+        $destServer.ConnectionContext.Disconnect()
+        if ($Pscmdlet.ShouldProcess("console", "Showing finished message")) { Write-Output "Job migration finished" }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlAlert
+    }
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 }

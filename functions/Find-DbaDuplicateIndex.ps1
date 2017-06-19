@@ -654,7 +654,15 @@ Will find exact duplicate or overlapping indexes on all user databases
 			Write-Output "There are no databases to analyse."
 		}
 	}
+<<<<<<< HEAD
 	end {
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Get-SqlDuplicateIndex
+=======
+	
+	END
+	{
+        $server.ConnectionContext.Disconnect()
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Get-SqlDuplicateIndex
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

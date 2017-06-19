@@ -320,6 +320,7 @@ function Export-DbaLogin {
 		$sql = $sql | Where-Object { $_ -notlike "CREATE USER [dbo] FOR LOGIN * WITH DEFAULT_SCHEMA=[dbo]" }
 
 		$sql = $outsql -join "`r`nGO`r`n"
+<<<<<<< HEAD
 
 		if ($FilePath) {
 			$sql | Out-File -Encoding UTF8 -FilePath $FilePath -Append:$Append -NoClobber:$NoClobber
@@ -328,6 +329,16 @@ function Export-DbaLogin {
 			$sql
 		}
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Export-SqlLogin
+=======
+		
+        if ($FilePath.Length -gt 0) {
+            $sql | Out-File -Encoding UTF8 -FilePath $FilePath -Append:$Append -NoClobber:$NoClobber
+        }
+        else {
+            return $sql
+        }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Export-SqlLogin
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }
 

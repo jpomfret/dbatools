@@ -341,6 +341,15 @@ Will remove from all databases the user OrphanUser EVEN if exists their matching
 			Write-Message -Level Verbose -Message "Total Elapsed time: $totaltime"
 		}
 
+<<<<<<< HEAD
+=======
+        #If the call don't come from Repair-DbaOrphanUser function, show elapsed time
+		if ($StackSource -ne "Repair-DbaOrphanUser")
+        {
+           Write-Verbose "Total Elapsed time: $totaltime"
+        }
+		
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Remove-SqlOrphanUser
 	}
 }

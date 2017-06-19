@@ -181,7 +181,17 @@ function Copy-DbaAgentProxyAccount {
 			}
 		}
 	}
+<<<<<<< HEAD
 	end {
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlProxyAccount
+=======
+	
+	END
+	{
+		$sourceserver.ConnectionContext.Disconnect()
+		$destserver.ConnectionContext.Disconnect()
+        If ($Pscmdlet.ShouldProcess("console", "Showing finished message")) { Write-Output "Server proxy account migration finished" }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlProxyAccount
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

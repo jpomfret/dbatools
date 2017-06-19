@@ -1,28 +1,31 @@
 ﻿function Get-DbaDatabaseCertificate {
 	<#
 .SYNOPSIS
-Gets database certificates
+Gets database certificates.
 
 .DESCRIPTION
-Gets database certificates
+Gets database certificates.
 
 .PARAMETER SqlInstance
-The target SQL Server instance
+The target SQL Server instance.
 
 .PARAMETER SqlCredential
 Allows you to login to SQL Server using alternative credentials
 
 .PARAMETER Database
-Get certificate from specific database
+Get certificate from specific database.
 
 .PARAMETER ExcludeDatabase
 Database(s) to ignore when retrieving certificates.
 
 .PARAMETER Certificate
-Get specific certificate
+Get specific certificate.
+
+.PARAMETER NoSystemCert
+Excludes built in certificates that start with ##MS.
 
 .PARAMETER Silent 
-Use this switch to disable any kind of verbose messages
+Use this switch to disable any kind of verbose messages.
 
 .NOTES
 Tags: Certificate
@@ -45,6 +48,11 @@ Get-DbaDatabaseCertificate -SqlInstance Server1 -Database db1 -Certificate cert1
 
 Gets the cert1 certificate within the db1 database
 	
+.EXAMPLE
+Get-DbaCertificate -SqlInstance Server1 -NoSystemCert
+
+Gets all certificates except those that start with ##MS
+
 #>
 	[CmdletBinding()]
 	param (
@@ -52,9 +60,15 @@ Gets the cert1 certificate within the db1 database
 		[Alias("ServerInstance", "SqlServer")]
 		[DbaInstanceParameter[]]$SqlInstance,
 		[System.Management.Automation.PSCredential]$SqlCredential,
+<<<<<<< HEAD:functions/Get-DbaDatabaseCertificate.ps1
 		[object[]]$Database,
 		[object[]]$ExcludeDatabase,
 		[object[]]$Certificate,
+=======
+		[string[]]$Database,
+		[string[]]$Certificate,
+		[switch]$NoSystemCert,
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772:functions/Get-DbaCertificate.ps1
 		[switch]$Silent
 	)
 	
@@ -89,14 +103,24 @@ Gets the cert1 certificate within the db1 database
 					continue
 				}
 				
-				if ($null -eq $smodb.Certificates) {
+				if (0 -eq $smodb.Certificates.count) {
 					Write-Message -Message "No certificate exists in the $db database on $instance" -Target $smodb -Level Verbose
 					continue
 				}
 				
 				$certs = $smodb.Certificates
 				if ($Certificate) {
+<<<<<<< HEAD:functions/Get-DbaDatabaseCertificate.ps1
 					$certs = $certs | Where-Object Name -in $Certificate
+=======
+					$certs = $smodb.Certificates | Where-Object Name -in $Certificate
+				}
+				elseif ($NoSystemCert) {
+					$certs = $smodb.Certificates | Where-Object Name -notlike '##MS*'
+				}
+				else {
+					$certs = $smodb.Certificates 
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772:functions/Get-DbaCertificate.ps1
 				}
 				
 				foreach ($cert in $certs) {

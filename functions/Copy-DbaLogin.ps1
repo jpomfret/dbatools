@@ -436,6 +436,7 @@ function Copy-DbaLogin {
 			}
 		}
 	}
+<<<<<<< HEAD
 	end {
 		if ($Pscmdlet.ShouldProcess("console", "Showing time elapsed message")) {
 			Write-Message -Level Output -Message "Login migration completed: $(Get-Date)"
@@ -449,5 +450,22 @@ function Copy-DbaLogin {
 			Write-Message -Level Output -Message "Total elapsed time: $totalTime"
 		}
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlLogin
+=======
+	
+	END {
+		
+        If ($Pscmdlet.ShouldProcess("console", "Showing time elapsed message")) {
+            Write-Output "Login migration completed: $(Get-Date)"
+            $totaltime = ($elapsed.Elapsed.toString().Split(".")[0])
+            $sourceserver.ConnectionContext.Disconnect()
+			
+            if ($Destination.length -gt 0) {
+                $destserver.ConnectionContext.Disconnect()
+            }
+			
+            Write-Output "Total elapsed time: $totaltime"
+        }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlLogin
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

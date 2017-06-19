@@ -143,6 +143,7 @@ In the above example, a list of servers is generated using database instance nam
 
         <#
 			Process each server
+<<<<<<< HEAD
 		#>
 
         foreach ($servername in $servers) {
@@ -211,4 +212,82 @@ In the above example, a list of servers is generated using database instance nam
 		) WITH (IGNORE_DUP_KEY = ON)
 		GO
 	#>
+=======
+
+#>
+		
+		foreach ($servername in $servers)
+		{
+			Write-Output "Attempting to connect to $servername"
+			try { $server = Connect-SqlServer -SqlServer $servername -SqlCredential $SqlCredential }
+			catch { Write-Error "Can't connect to $servername. Skipping."; continue }
+			
+			if (!(Test-SqlSa $server)) { Write-Warning "Not a sysadmin on $servername, resultset would be underwhelming. Skipping."; continue }
+			
+			
+			$procs = $server.EnumProcesses() | Where-Object { $_.Host -ne $sourceserver.ComputerNamePhysicalNetBIOS -and ![string]::IsNullOrEmpty($_.Host) }
+			$procs = $procs | Where-Object { $systemdbs -notcontains $_.Database -and $excludedPrograms -notcontains $_.Program } | Select-Object Login, Host, Database, Program
+			
+			foreach ($p in $procs)
+			{
+				$row = $datatable.NewRow()
+				$row.itemarray = $server.name, $p.Login, $p.Host, $p.Database, $p.Program
+				$datatable.Rows.Add($row)
+			}
+			$server.ConnectionContext.Disconnect()
+			Write-Output "Added process information for $servername to datatable."
+		}
+		
+<#
+
+			Write to $Table in $Database on $SqlServer
+
+#>
+		
+		try
+		{
+			$bulkcopy.WriteToServer($datatable)
+			if ($datatable.rows.count -eq 0)
+			{
+				Write-Warning "Nothing done."
+			}
+			$bulkcopy.Close()
+			Write-Output "Updated $Table in $Database on $SqlServer with $($datatable.rows.count) rows."
+		}
+		catch { Write-Error "Could not update $Table in $Database on $SqlServer. Do the database and table exist and do you have access?" }
+		
+	}
+	
+	END
+	{
+		Write-Output "Script completed"
+		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Watch-SqlDbLogin
+	}
+<#
+---- SQL database and table ----
+
+    CREATE DATABASE DatabaseLogins
+    GO
+    USE DatabaseLogins
+    GO
+        CREATE TABLE [dbo].[DbLogins]( 
+        [SQLServer] varchar(128),
+        [LoginName] varchar(128),
+        [Host] varchar(128),
+        [DbName] varchar(128),
+        [Program] varchar(256),
+        [Timestamp] datetime default getdate(),
+    )
+-- Create Unique Clustered Index with IGNORE_DUPE_KEY=ON to avoid duplicates
+    CREATE UNIQUE CLUSTERED INDEX [ClusteredIndex-Combo] ON [dbo].[DbLogins]
+        (
+        [SQLServer] ASC,
+        [LoginName] ASC,
+        [Host] ASC,
+        [DbName] ASC,
+        [Program] ASC
+    ) WITH (IGNORE_DUP_KEY = ON)
+    GO
+#>
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 }

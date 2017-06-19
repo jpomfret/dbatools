@@ -1,13 +1,20 @@
 function Backup-DbaDatabaseCertificate {
 	<#
 .SYNOPSIS
+<<<<<<< HEAD:functions/Backup-DbaDatabaseCertificate.ps1
  Exports database certificates from SQL Server using smo
 
 .DESCRIPTION
 Exports database certificates from SQL Server using smo and outputs the .cer and .pvk files
+=======
+Exports certificates from SQL Server using smo.
+
+.DESCRIPTION
+Exports certificates from SQL Server using smo and outputs the .cer and .pvk files.
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772:functions/Export-DbaCertificate.ps1
 
 .PARAMETER SqlInstance
-The SQL Server that you're connecting to.
+The target SQL Server Instance.
 
 .PARAMETER SqlCredential
 Allows you to login to servers using SQL Logins as opposed to Windows Auth/Integrated/Trusted. To use:
@@ -17,7 +24,7 @@ $scred = Get-Credential, this pass $scred object to the param.
 Windows Authentication will be used if DestinationSqlCredential is not specified. To connect as a different Windows user, run PowerShell as that user.	
 
 .PARAMETER Path
-The Path to output the files to. The path is relative to the SQL Server itself. If no path is specified, the default data directory will be used
+The Path to output the files to. The path is relative to the SQL Server itself. If no path is specified, the default data directory will be used.
 
 .PARAMETER Database
 Exports the encryptor for specific database(s).
@@ -29,13 +36,13 @@ Database(s) to skip when exporting encryptors.
 Exports certificate that matches the name(s).
 
 .PARAMETER Suffix
-The suffix of the filename of the exported certificate
+The suffix of the filename of the exported certificate.
 
 .PARAMETER EncryptionPassword 
-A string value that specifies the system path to encrypt the private key.
+A string value that specifies the password to encrypt the private key.
 
 .PARAMETER DecryptionPassword 
-A string value that specifies the system path to decrypt the private key.
+A string value that specifies the password to decrypt the private key.
 
 .PARAMETER WhatIf 
 Shows what would happen if the command were to run. No actions are actually performed. 

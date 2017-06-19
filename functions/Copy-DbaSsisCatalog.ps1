@@ -530,8 +530,13 @@ Deploy entire SSIS catalog to an instance without a destination catalog.  Passin
                 }
             }
         }
+<<<<<<< HEAD
     }
     end {
         Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlSsisCatalog
     }
+=======
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlSsisCatalog
+	}
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 }

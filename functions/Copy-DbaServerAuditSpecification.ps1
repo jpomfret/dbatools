@@ -158,7 +158,17 @@ Shows what would happen if the command were executed using force.
 
 		}
 	}
+<<<<<<< HEAD
 	end {
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlAuditSpecification
+=======
+	
+	END
+	{
+		$sourceserver.ConnectionContext.Disconnect()
+		$destserver.ConnectionContext.Disconnect()
+        If ($Pscmdlet.ShouldProcess("console", "Showing finished message")) { Write-Output "Server audit migration finished" }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlAuditSpecification
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

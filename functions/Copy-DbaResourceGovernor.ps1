@@ -192,7 +192,20 @@ Shows what would happen if the command were executed.
 		}
 		
 	}
+<<<<<<< HEAD
 	end {
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlResourceGovernor
+=======
+	
+	end
+	{
+		$sourceserver.ConnectionContext.Disconnect()
+		$destserver.ConnectionContext.Disconnect()
+		
+        If ($Pscmdlet.ShouldProcess("console", "Showing finished message")) {
+            Write-Output "Resource Governor migration finished"
+        }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlResourceGovernor
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

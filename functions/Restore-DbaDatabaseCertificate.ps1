@@ -4,10 +4,10 @@ function Restore-DbaDatabaseCertificate {
 Imports certificates from .cer files using SMO.
 
 .DESCRIPTION
-Imports certificates from.cer files using SMO.
+Imports certificates from .cer files using SMO.
 
 .PARAMETER SqlInstance
-The SQL Server to create the certificates on.
+The target SQL Server Instance.
 
 .PARAMETER Path
 The Path the contains the certificate and private key files. The path can be a directory or a specific certificate.
@@ -96,7 +96,12 @@ Imports all the certificates in the specified path.
 		if (Test-FunctionInterrupt) { return }
 
 		foreach ($fullname in $path) {
+<<<<<<< HEAD:functions/Restore-DbaDatabaseCertificate.ps1
 
+=======
+			
+			$fullname = $fullname.ExportPathCert
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772:functions/Import-DbaCertificate.ps1
 			if (![dbavalidate]::IsLocalhost($SqlInstance) -and !$fullname.StartsWith('\')) {
 				Stop-Function -Message "Path ($fullname) must be a UNC share when SQL instance is not local." -Continue -Target $fullname
 			}

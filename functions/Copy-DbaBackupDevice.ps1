@@ -216,7 +216,17 @@ function Copy-DbaBackupDevice {
 			}
 		} #end foreach backupDevice
 	}
+<<<<<<< HEAD
 	end	{
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlBackupDevice
+=======
+	
+	END
+	{
+		$sourceserver.ConnectionContext.Disconnect()
+		$destserver.ConnectionContext.Disconnect()
+        If ($Pscmdlet.ShouldProcess("console", "Showing finished message")) { Write-Output "backup device migration finished" }
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlBackupDevice
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 	}
 }

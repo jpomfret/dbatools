@@ -66,6 +66,7 @@ Function Test-DbaSqlPath {
 #>
     [CmdletBinding()]
     [OutputType([bool])]
+<<<<<<< HEAD
     param (
         [Parameter(Mandatory = $true)]
         [Alias("ServerInstance", "SqlServer")]
@@ -110,5 +111,59 @@ Function Test-DbaSqlPath {
     }
     
     Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Test-SqlPath
+=======
+	param (
+		[Parameter(Mandatory = $true)]
+		[Alias("ServerInstance", "SqlInstance")]
+		[object]$SqlServer,
+		[Parameter(Mandatory = $true)]
+		[string]$Path,
+		[System.Management.Automation.PSCredential]$SqlCredential
+	)
+
+	#$server = Connect-SqlServer -SqlServer $SqlServer -SqlCredential $SqlCredential
+	$FunctionName =(Get-PSCallstack)[0].Command
+	try 
+	{
+		if ($sqlServer -isnot [Microsoft.SqlServer.Management.Smo.SqlSmoObject])
+		{
+			Write-verbose "$FunctionName - Opening SQL Server connection"
+			$NewConnection = $True
+			$Server = Connect-SqlServer -SqlServer $SqlServer -SqlCredential $SqlCredential	
+		}
+		else
+		{
+			Write-Verbose "$FunctionName - reusing SMO connection"
+			$server = $SqlServer
+		}
+	}
+	catch {
+
+		Write-Warning "$FunctionName - Cannot connect to $SqlServer" 
+		break
+	}
+	Write-Verbose "$FunctionName - Path check is $path"
+	$sql = "EXEC master.dbo.xp_fileexist '$path'"
+	try
+	{
+		#$fileexist = Invoke-DbaSqlcmd -server $server -Query $sql
+		$fileexist = $server.ConnectionContext.ExecuteWithResults($sql)
+	}
+	catch
+	{
+		Write-Warning "Test-DbaSqlPath failed: $_"
+		throw
+	}
+	if ($fileexist.tables.rows[0] -eq $true -or $fileexist.tables.rows[1] -eq $true)
+	{
+		return $true
+	}
+	else
+	{
+		return $false
+	}
+	
+	Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Test-SqlPath
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 }
 

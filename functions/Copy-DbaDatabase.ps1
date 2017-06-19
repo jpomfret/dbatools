@@ -1105,7 +1105,11 @@ It also includes the support databases (ReportServer, ReportServerTempDb, distri
 		}
 		
 		$sourceserver.ConnectionContext.Disconnect()
+<<<<<<< HEAD
 		$destserver.ConnectionContext.Disconnect()
+=======
+        $destserver.ConnectionContext.Disconnect()
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Copy-SqlDatabase
 	}
 }

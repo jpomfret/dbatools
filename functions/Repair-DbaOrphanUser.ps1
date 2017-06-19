@@ -227,8 +227,13 @@ https://dbatools.io/Repair-DbaOrphanUser
 	}
 	end {
 		$totaltime = ($start.Elapsed)
+<<<<<<< HEAD
 		Write-Message -Level Verbose -Message "Total Elapsed time: $totaltime"
 
+=======
+		Write-Output "Total Elapsed time: $totaltime"
+		
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Repair-SqlOrphanUser
 	}
 }

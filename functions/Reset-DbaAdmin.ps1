@@ -409,6 +409,7 @@ Internal function.
                 
                 $sql = "ALTER LOGIN [$login] WITH CHECK_POLICY = OFF
 					ALTER LOGIN [$login] WITH PASSWORD = '$(ConvertTo-PlainText $Password)' UNLOCK"
+<<<<<<< HEAD
                 if ($(Invoke-ResetSqlCmd -SqlInstance $sqlinstance -Sql $sql) -eq $false) {
                     Write-Message -Level Warning -Message "Couldn't unlock account."
                 }
@@ -441,4 +442,36 @@ Internal function.
     end {
         Write-Message -Level Verbose -Message "Script complete!"
     }
+=======
+				if ($(Invoke-ResetSqlCmd -SqlServer $sqlserver -Sql $sql) -eq $false) { Write-Error "Couldn't unlock account." }
+			}
+			
+			Write-Output "Ensuring login is enabled"
+			$sql = "ALTER LOGIN [$login] ENABLE"
+			if ($(Invoke-ResetSqlCmd -SqlServer $sqlserver -Sql $sql) -eq $false) { Write-Error "Couldn't enable login." }
+			
+			if ($login -ne "sa")
+			{
+				Write-Output "Ensuring login exists within sysadmin role"
+				$sql = "EXEC sp_addsrvrolemember '$login', 'sysadmin'"
+				if ($(Invoke-ResetSqlCmd -SqlServer $sqlserver -Sql $sql) -eq $false) { Write-Error "Couldn't add to syadmin role." }
+			}
+			
+			Write-Output "Finished with login tasks"
+			Write-Output "Restarting SQL Server"
+			Stop-Service -InputObject $sqlservice -Force -ErrorAction SilentlyContinue
+			if ($isclustered -eq $true)
+			{
+				$clusterResource | Where-Object { $_.Name -eq "SQL Server" } | ForEach-Object { $_.BringOnline(60) }
+				$clusterResource | Where-Object { $_.Name -ne "SQL Server" } | ForEach-Object { $_.BringOnline(60) }
+			}
+			else { Start-Service -InputObject $instanceservices -ErrorAction SilentlyContinue }
+		}
+	}
+	END
+	{
+		Write-Output "Script complete!"
+		Test-DbaDeprecation -DeprecatedOn "1.0.0" -Silent:$false -Alias Reset-SqlAdmin
+	}
+>>>>>>> 0945d256f7d90e89ceabfdc787d24e22226d1772
 }
