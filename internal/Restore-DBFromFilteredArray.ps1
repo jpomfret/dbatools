@@ -79,6 +79,7 @@ Function Restore-DBFromFilteredArray {
         $Server.ConnectionContext.StatementTimeout = 0
         $Restore = New-Object Microsoft.SqlServer.Management.Smo.Restore
         $Restore.ReplaceDatabase = $ReplaceDatabase
+        $Restore.NoRecovery = $NoRecovery
 		
         if ($UseDestinationDefaultDirectories) {
             $DestinationDataDirectory = Get-SqlDefaultPaths $Server data
