@@ -108,27 +108,22 @@
         foreach ($instance in $SqlInstance) {
             Write-Message -Level Verbose -Message "Connecting to $instance"
             try {
-                $server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $sqlcredential
+                $server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $sqlcredential  -MinimumVersion 9
             }
             catch {
                 Write-Message -Level Warning -Message "Can't connect to $instance"
                 Continue
             }
-        
-            $lastRestart = $server.Databases['tempdb'].CreateDate
-            $endDate = Get-Date -Date $lastRestart
-            $diffDays = (New-TimeSpan $server.Databases['tempdb'].CreateDate).Days
-
-            if ($pipedatabase.Length -gt 0) {
-                $databases = $pipedatabase.name
+            
+            if ($database) {
+                $databases = $server.Databases | Where-Object Name -in $database
             }
-
-            if ($databases.Count -eq 0) {
-                $databases = ($server.Databases | Where-Object { $_.IsSystemObject -eq 0 -and $_.IsAccessible}).Name
+            else {
+                $databases = $server.Databases | Where-Object IsAccessible -eq $true
             }
-
+            
             if ($databases.Count -gt 0) {
-                foreach ($db in $databases) {
+                foreach ($db in $databases.name) {
                 
                     if ($ExcludeDatabase -contains $db -or $null -eq $server.Databases[$db]) {
                         continue
@@ -160,11 +155,8 @@
                 Write-Message -Level Output -Message "There are no databases to analyse."
             }
         }
-        end {
-            if (Test-FunctionInterrupt) {
-                return
-            }
-            Test-DbaDeprecation -DeprecatedOn "1.0.0" -Alias Get-SqlDisabledIndex
-        }
+    }
+    end {
+        Test-DbaDeprecation -DeprecatedOn "1.0.0" -EnableException:$false -Alias Get-SqlDisabledIndex
     }
 }
