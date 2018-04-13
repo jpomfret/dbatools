@@ -7,7 +7,7 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
         $paramCount = 9
         $defaultParamCount = 11
         [object[]]$params = (Get-ChildItem function:\Set-DbaDbCompression).Parameters.Keys
-        $knownParameters = 'SqlInstance', 'SqlCredential','Database','ExcludeDatabase','CompressionType','MaxRunTime','PercentCompression','InputObject','EnableException'
+        $knownParameters = 'SqlInstance', 'SqlCredential', 'Database', 'ExcludeDatabase', 'CompressionType', 'MaxRunTime', 'PercentCompression', 'InputObject', 'EnableException'
         It "Should contain our specific parameters" {
             ( (Compare-Object -ReferenceObject $knownParameters -DifferenceObject $params -IncludeEqual | Where-Object SideIndicator -eq "==").Count ) | Should Be $paramCount
         }
@@ -25,8 +25,8 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
         $null = $server.Query("select * into syscols from sys.all_columns
                                 select * into sysallparams from sys.all_parameters
                                 create clustered index CL_sysallparams on sysallparams (object_id)
-                                create nonclustered index NC_syscols on syscols (precision) include (collation_name)",$dbname)
-       }
+                                create nonclustered index NC_syscols on syscols (precision) include (collation_name)", $dbname)
+    }
     AfterAll {
         Get-DbaProcess -SqlInstance $script:instance2 -Database $dbname | Stop-DbaProcess -WarningAction SilentlyContinue
         Remove-DbaDatabase -SqlInstance $script:instance2 -Database $dbname -Confirm:$false
@@ -40,19 +40,50 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
     }
 
     Context "Command handles heaps and clustered indexes" {
-        foreach ($row in $results | Where-Object {$_.IndexId -le 1}){
+        foreach ($row in $results | Where-Object {$_.IndexId -le 1}) {
             It "Should process object $($row.TableName)" {
                 $row.AlreadyProcesssed | Should Be $True
             }
         }
     }
     Context "Command handles nonclustered indexes" {
-        foreach ($row in $results | Where-Object {$_.IndexId -gt 1}){
+        foreach ($row in $results | Where-Object {$_.IndexId -gt 1}) {
             It "Should process nonclustered index $($row.IndexName)" {
                 $row.AlreadyProcesssed | Should Be $True
             }
         }
     }
+
+    Context "Command sets all items compression to none" {
+        $results = Set-DbaDbCompression -SqlInstance $script:instance2 -Database $dbname -CompressionType None
+        It "Should contain objects" {
+            $results | Should Not Be $null
+        }
+        It "All objects should have compression set to None" {
+            $(Get-DbaDbCompression -SqlInstance localhost\sql2016 -Database test).datacompression -ne 'none' | Should Be $null
+        }
+    }
+  
+    Context "Command sets all items compression to row" {
+        $results = Set-DbaDbCompression -SqlInstance $script:instance2 -Database $dbname -CompressionType Row
+        It "Should contain objects" {
+            $results | Should Not Be $null
+        }
+        It "All objects should have compression set to row" {
+            $(Get-DbaDbCompression -SqlInstance localhost\sql2016 -Database test).datacompression -ne 'Row' | Should Be $null
+        }
+    }
+  
+    Context "Command sets all items compression to page" {
+        $results = Set-DbaDbCompression -SqlInstance $script:instance2 -Database $dbname -CompressionType Page
+        It "Should contain objects" {
+            $results | Should Not Be $null
+        }
+        It "All objects should have compression set to page" {
+            $(Get-DbaDbCompression -SqlInstance localhost\sql2016 -Database test).datacompression -ne 'Page' | Should Be $null
+        }
+    }
+
     Context "Command excludes results for specified database" {
         $server.Databases[$dbname].Tables['syscols'].PhysicalPartitions[0].DataCompression = "NONE"
         $server.Databases[$dbname].Tables['syscols'].Rebuild()
