@@ -60,7 +60,7 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
             $results | Should Not Be $null
         }
         It "All objects should have compression set to None" {
-            $(Get-DbaDbCompression -SqlInstance localhost\sql2016 -Database test).datacompression -ne 'none' | Should Be $null
+            $(Get-DbaDbCompression -SqlInstance $script:instance2 -Database $dbname).datacompression -ne 'none' | Should Be $null
         }
     }
   
@@ -70,7 +70,7 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
             $results | Should Not Be $null
         }
         It "All objects should have compression set to row" {
-            $(Get-DbaDbCompression -SqlInstance localhost\sql2016 -Database test).datacompression -ne 'Row' | Should Be $null
+            $(Get-DbaDbCompression -SqlInstance $script:instance2 -Database $dbname ).datacompression -ne 'Row' | Should Be $null
         }
     }
   
@@ -80,7 +80,7 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
             $results | Should Not Be $null
         }
         It "All objects should have compression set to page" {
-            $(Get-DbaDbCompression -SqlInstance localhost\sql2016 -Database test).datacompression -ne 'Page' | Should Be $null
+            $(Get-DbaDbCompression -SqlInstance $script:instance2 -Database $dbname).datacompression -ne 'Page' | Should Be $null
         }
     }
 
