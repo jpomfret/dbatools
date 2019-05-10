@@ -50,27 +50,27 @@ function Get-DbaRandomizedDataset {
         https://dbatools.io/Get-DbaRandomizedDataSet
 
     .EXAMPLE
-        Get-DbaRandomizedDataset -Template Personaldata
+        PS C:\> Get-DbaRandomizedDataset -Template Personaldata
 
         Generate a data set based on the default template PersonalData.
 
     .EXAMPLE
-        Get-DbaRandomizedDataset -Template Personaldata -Rows 10
+        PS C:\> Get-DbaRandomizedDataset -Template Personaldata -Rows 10
 
         Generate a data set based on the default template PersonalData with 10 rows
 
     .EXAMPLE
-        Get-DbaRandomizedDataset -TemplateFile C:\Dataset\FinancialData.json
+        PS C:\> Get-DbaRandomizedDataset -TemplateFile C:\Dataset\FinancialData.json
 
         Generates data set based on a template file in another directory
 
     .EXAMPLE
-        Get-DbaRandomizedDataset -Template Personaldata, FinancialData
+        PS C:\> Get-DbaRandomizedDataset -Template Personaldata, FinancialData
 
         Generates multiple data sets
 
     .EXAMPLE
-        Get-DbaRandomizedDatasetTemplate -Template PersonalData | Get-DbaRandomizedDataset
+        PS C:\> Get-DbaRandomizedDatasetTemplate -Template PersonalData | Get-DbaRandomizedDataset
 
         Pipe the templates from Get-DbaRandomizedDatasetTemplate to Get-DbaRandomizedDataset and generate the data set
     #>

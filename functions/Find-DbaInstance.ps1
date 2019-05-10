@@ -749,13 +749,13 @@ function Find-DbaInstance {
                 A description of the Cidr parameter.
 
             .EXAMPLE
-                Get-IPrange -Start 192.168.8.2 -End 192.168.8.20
+                PS C:\> Get-IPrange -Start 192.168.8.2 -End 192.168.8.20
 
             .EXAMPLE
-                Get-IPrange -IPAddress 192.168.8.2 -Mask 255.255.255.0
+                PS C:\> Get-IPrange -IPAddress 192.168.8.2 -Mask 255.255.255.0
 
             .EXAMPLE
-                Get-IPrange -IPAddress 192.168.8.3 -Cidr 24
+                PS C:\> Get-IPrange -IPAddress 192.168.8.3 -Cidr 24
 
             .NOTES
                 Author: BarryCWT
