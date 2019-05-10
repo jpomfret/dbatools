@@ -287,7 +287,7 @@ function Import-DbaCsv {
                     Columns parameter determine column names.
 
                 .EXAMPLE
-                    New-SqlTable -Path $Path -Delimiter $Delimiter -Columns $columns -ColumnText $columntext -SqlConn $sqlconn -Transaction $transaction
+                    PS C:\> New-SqlTable -Path $Path -Delimiter $Delimiter -Columns $columns -ColumnText $columntext -SqlConn $sqlconn -Transaction $transaction
 
                 .OUTPUTS
                     Creates new table

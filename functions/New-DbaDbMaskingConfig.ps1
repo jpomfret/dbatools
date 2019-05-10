@@ -61,17 +61,17 @@ function New-DbaDbMaskingConfig {
         https://dbatools.io/New-DbaDbMaskingConfig
 
     .EXAMPLE
-        New-DbaDbMaskingConfig -SqlInstance SQLDB1 -Database DB1 -Path C:\Temp\clone
+        PS C:\> New-DbaDbMaskingConfig -SqlInstance SQLDB1 -Database DB1 -Path C:\Temp\clone
 
         Process all tables and columns for database DB1 on instance SQLDB1
 
     .EXAMPLE
-        New-DbaDbMaskingConfig -SqlInstance SQLDB1 -Database DB1 -Table Customer -Path C:\Temp\clone
+        PS C:\> New-DbaDbMaskingConfig -SqlInstance SQLDB1 -Database DB1 -Table Customer -Path C:\Temp\clone
 
         Process only table Customer with all the columns
 
     .EXAMPLE
-        New-DbaDbMaskingConfig -SqlInstance SQLDB1 -Database DB1 -Table Customer -Column City -Path C:\Temp\clone
+        PS C:\> New-DbaDbMaskingConfig -SqlInstance SQLDB1 -Database DB1 -Table Customer -Column City -Path C:\Temp\clone
 
         Process only table Customer and only the column named "City"
 

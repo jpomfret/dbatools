@@ -52,8 +52,8 @@ function Get-DbaAgentJobOutputFile {
         on the SERVERNAME instance and SERVERNAME2
 
     .EXAMPLE
-        $Servers = 'SERVER','SERVER\INSTANCE1'
-        Get-DbaAgentJobOutputFile -SqlInstance $Servers -Job 'The Agent Job' -OpenFile
+        PS C:\>$Servers = 'SERVER','SERVER\INSTANCE1'
+        PS C:\>Get-DbaAgentJobOutputFile -SqlInstance $Servers -Job 'The Agent Job' -OpenFile
 
         This will return the configured paths to the output files for each of the job step of the The Agent Job Job
         on the SERVER instance and the SERVER\INSTANCE1 and open the files if they are available
