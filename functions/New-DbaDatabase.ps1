@@ -86,22 +86,22 @@ function New-DbaDatabase {
         https://dbatools.io/New-DbaDatabase
 
     .EXAMPLE
-        New-DbaDatabase -SqlInstance sql1
+        PS C:\> New-DbaDatabase -SqlInstance sql1
 
         Creates a randomly named database (random-N) on instance sql1
 
     .EXAMPLE
-        New-DbaDatabase -SqlInstance sql1 -Name dbatools, dbachecks
+        PS C:\> New-DbaDatabase -SqlInstance sql1 -Name dbatools, dbachecks
 
         Creates a database named dbatools and a database named dbachecks on sql1
 
     .EXAMPLE
-        New-DbaDatabase -SqlInstance sql1, sql2, sql3 -Name multidb, multidb2 -SecondaryFilesize 20 -SecondaryFileGrowth 20 -LogSize 20 -LogGrowth 20
+        PS C:\> New-DbaDatabase -SqlInstance sql1, sql2, sql3 -Name multidb, multidb2 -SecondaryFilesize 20 -SecondaryFileGrowth 20 -LogSize 20 -LogGrowth 20
 
         Creates two databases, multidb and multidb2, on 3 instances (sql1, sql2 and sql3) and sets the secondary data file size to 20MB, the file growth to 20MB and the log growth to 20MB for each
 
     .EXAMPLE
-        New-DbaDatabase -SqlInstance sql1 -Name nondefault -DataFilePath M:\Data -LogFilePath 'L:\Logs with spaces' -SecondaryFileCount 2
+        PS C:\> New-DbaDatabase -SqlInstance sql1 -Name nondefault -DataFilePath M:\Data -LogFilePath 'L:\Logs with spaces' -SecondaryFileCount 2
 
         Creates a database named nondefault and places data files in in the M:\data directory and log files in "L:\Logs with spaces".
 
