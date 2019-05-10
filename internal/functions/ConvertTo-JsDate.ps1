@@ -29,7 +29,7 @@ function ConvertTo-JsDate {
             --internal function, not exposed to end user
 
         .EXAMPLE
-            ConvertTo-JsDate (Get-Date)
+            PS C:\> ConvertTo-JsDate (Get-Date)
 
             Returned output: new Date(2018, 7, 14, 07, 40, 42)
        #>

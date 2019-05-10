@@ -62,14 +62,16 @@ function Remove-DbaAgentSchedule {
 
     .EXAMPLE
         PS C:\> Remove-DbaAgentSchedule -SqlInstance sql1, sql2, sql3 -Schedule daily, weekly
+
         Remove the schedule on multiple servers for multiple schedules
 
     .EXAMPLE
-        sql1, sql2, sql3 | Remove-DbaAgentSchedule -Schedule daily, weekly
+        PS C:\> sql1, sql2, sql3 | Remove-DbaAgentSchedule -Schedule daily, weekly
+
         Remove the schedule on multiple servers using pipe line
 
     .EXAMPLE
-        Get-DbaAgentSchedule -SqlInstance sql1 -Schedule sched1, sched2, sched3 | Remove-DbaAgentSchedule
+        PS C:\> Get-DbaAgentSchedule -SqlInstance sql1 -Schedule sched1, sched2, sched3 | Remove-DbaAgentSchedule
 
         Remove the schedules using a pipeline
 

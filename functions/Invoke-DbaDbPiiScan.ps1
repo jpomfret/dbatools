@@ -76,32 +76,32 @@ function Invoke-DbaDbPiiScan {
         https://dbatools.io/Invoke-DbaDbPiiScan
 
     .EXAMPLE
-        Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db1
+        PS C:\> Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db1
 
         Scan the database db1 on instance sql1
 
     .EXAMPLE
-        Invoke-DbaDbPiiScan -SqlInstance sql1, sql2 -Database db1, db2
+        PS C:\> Invoke-DbaDbPiiScan -SqlInstance sql1, sql2 -Database db1, db2
 
         Scan multiple databases on multiple instances
 
     .EXAMPLE
-        Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db2 -ExcludeColumn firstname
+        PS C:\> Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db2 -ExcludeColumn firstname
 
         Scan database db2 but exclude the column firstname
 
     .EXAMPLE
-        Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db2 -CountryCode US
+        PS C:\> Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db2 -CountryCode US
 
         Scan database db2 but only apply data patterns used for the United States
 
     .EXAMPLE
-        Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db1 -PatternsFile c:\pii\patterns.json
+        PS C:\> Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db1 -PatternsFile c:\pii\patterns.json
 
         Scans db1 on instance sql1 with additional custom patterns
 
     .EXAMPLE
-        Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db1 -PatternsFile c:\pii\patterns.json -ExcludeDefaultPatterns
+        PS C:\> Invoke-DbaDbPiiScan -SqlInstance sql1 -Database db1 -PatternsFile c:\pii\patterns.json -ExcludeDefaultPatterns
 
         Scans db1 on instance sql1 with additional custom patterns, excluding the default patterns
     #>

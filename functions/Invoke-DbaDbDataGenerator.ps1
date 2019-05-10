@@ -74,7 +74,7 @@ function Invoke-DbaDbDataGenerator {
         https://dbatools.io/Invoke-DbaDbDataGenerator
 
     .EXAMPLE
-        Invoke-DbaDbDataGenerator -SqlInstance sqldb2 -Database DB1 -FilePath C:\temp\sqldb1.db1.tables.json
+        PS C:\> Invoke-DbaDbDataGenerator -SqlInstance sqldb2 -Database DB1 -FilePath C:\temp\sqldb1.db1.tables.json
 
         Apply the data generation configuration from the file "sqldb1.db1.tables.json" to the db1 database on sqldb2. Prompt for confirmation for each table.
 

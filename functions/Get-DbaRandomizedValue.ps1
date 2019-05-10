@@ -64,27 +64,27 @@ function Get-DbaRandomizedValue {
         https://dbatools.io/Get-DbaRandomizedValue
 
     .EXAMPLE
-        Get-DbaRandomizedValue -DataType bit
+        PS C:\> Get-DbaRandomizedValue -DataType bit
 
         Will return either a 1 or 0
 
     .EXAMPLE
-        Get-DbaRandomizedValue -DataType int
+        PS C:\> Get-DbaRandomizedValue -DataType int
 
         Will generate a number between -2147483648 and 2147483647
 
     .EXAMPLE
-        Get-DbaRandomizedValue -RandomizerSubType Zipcode
+        PS C:\> Get-DbaRandomizedValue -RandomizerSubType Zipcode
 
         Generates a random zipcode
 
     .EXAMPLE
-        Get-DbaRandomizedValue -RandomizerSubType Zipcode -Format "#### ##"
+        PS C:\> Get-DbaRandomizedValue -RandomizerSubType Zipcode -Format "#### ##"
 
         Generates a random zipcode like "1234 56"
 
     .EXAMPLE
-        Get-DbaRandomizedValue -RandomizerSubType PhoneNumber -Format "(###) #######"
+        PS C:\> Get-DbaRandomizedValue -RandomizerSubType PhoneNumber -Format "(###) #######"
 
         Generates a random phonenumber like "(123) 4567890"
 

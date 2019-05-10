@@ -55,12 +55,12 @@ function New-DbaDbDataGeneratorConfig {
         https://dbatools.io/New-DbaDbDataGeneratorConfig
 
     .EXAMPLE
-        New-DbaDbDataGeneratorConfig -SqlInstance SQLDB1 -Database DB1 -Path C:\Temp\clone
+        PS C:\> New-DbaDbDataGeneratorConfig -SqlInstance SQLDB1 -Database DB1 -Path C:\Temp\clone
 
         Process all tables and columns for database DB1 on instance SQLDB1
 
     .EXAMPLE
-        New-DbaDbDataGeneratorConfig -SqlInstance SQLDB1 -Database DB1 -Table Customer -Path C:\Temp\clone
+        PS C:\> New-DbaDbDataGeneratorConfig -SqlInstance SQLDB1 -Database DB1 -Table Customer -Path C:\Temp\clone
 
         Process only table Customer with all the columns
 

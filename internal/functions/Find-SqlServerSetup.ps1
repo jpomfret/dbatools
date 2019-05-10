@@ -13,7 +13,7 @@ function Find-SqlServerSetup {
             - ProductVersion: Major and Minor versions should be the same
 
         .EXAMPLE
-            PS> Find-SqlServerSetup -Version 11.0 -Path \\my\updates
+            PS C:\> Find-SqlServerSetup -Version 11.0 -Path \\my\updates
 
             Looks for setup.exe in \\my\updates and all the subfolders
     #>

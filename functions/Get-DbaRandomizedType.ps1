@@ -38,22 +38,22 @@ function Get-DbaRandomizedType {
         https://dbatools.io/Get-DbaRandomizedDatasetTemplate
 
     .EXAMPLE
-        Get-DbaRandomizedType
+        PS C:\> Get-DbaRandomizedType
 
         Get all the types and subtypes
 
     .EXAMPLE
-        Get-DbaRandomizedType -Pattern "Addr"
+        PS C:\> Get-DbaRandomizedType -Pattern "Addr"
 
         Find all the types and sub types based on a pattern
 
     .EXAMPLE
-        Get-DbaRandomizedType -RandomizedType Person
+        PS C:\> Get-DbaRandomizedType -RandomizedType Person
 
         Find all the sub types for Person
 
     .EXAMPLE
-        Get-DbaRandomizedType -RandomizedSubType LastName
+        PS C:\> Get-DbaRandomizedType -RandomizedSubType LastName
 
         Get all the types and subtypes that known by "LastName"
 

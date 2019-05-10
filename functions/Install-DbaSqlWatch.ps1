@@ -49,28 +49,28 @@ function Install-DbaSqlWatch {
         https://dbatools.io/Install-DbaSqlWatch
 
     .EXAMPLE
-        Install-DbaSqlWatch -SqlInstance server1
+        PS C:\> Install-DbaSqlWatch -SqlInstance server1
 
         Logs into server1 with Windows authentication and then installs SqlWatch in the SQLWATCH database.
 
     .EXAMPLE
-        Install-DbaSqlWatch -SqlInstance server1\instance1 -Database DBA
+        PS C:\> Install-DbaSqlWatch -SqlInstance server1\instance1 -Database DBA
 
         Logs into server1\instance1 with Windows authentication and then installs SqlWatch in the DBA database.
 
     .EXAMPLE
-        Install-DbaSqlWatch -SqlInstance server1\instance1 -Database DBA -SqlCredential $cred
+        PS C:\> Install-DbaSqlWatch -SqlInstance server1\instance1 -Database DBA -SqlCredential $cred
 
         Logs into server1\instance1 with SQL authentication and then installs SqlWatch in the DBA database.
 
     .EXAMPLE
-        Install-DbaSqlWatch -SqlInstance sql2016\standardrtm, sql2016\sqlexpress, sql2014
+        PS C:\> Install-DbaSqlWatch -SqlInstance sql2016\standardrtm, sql2016\sqlexpress, sql2014
 
         Logs into sql2016\standardrtm, sql2016\sqlexpress and sql2014 with Windows authentication and then installs SqlWatch in the SQLWATCH database.
 
     .EXAMPLE
-        $servers = "sql2016\standardrtm", "sql2016\sqlexpress", "sql2014"
-        $servers | Install-DbaSqlWatch
+        PS C:\>$servers = "sql2016\standardrtm", "sql2016\sqlexpress", "sql2014"
+        PS C:\>$servers | Install-DbaSqlWatch
 
         Logs into sql2016\standardrtm, sql2016\sqlexpress and sql2014 with Windows authentication and then installs SqlWatch in the SQLWATCH database.
     #>
