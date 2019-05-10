@@ -161,41 +161,41 @@ function Install-DbaInstance {
         License: MIT https://opensource.org/licenses/MIT
 
     .Example
-        C:\PS> Install-DbaInstance -Version 2017 -Feature All
+        PS C:\> Install-DbaInstance -Version 2017 -Feature All
 
         Install a default SQL Server instance and run the installation enabling all features with default settings. Automatically generates configuration.ini
 
     .Example
-        C:\PS> Install-DbaInstance -SqlInstance sql2017\sqlexpress, server01 -Version 2017 -Feature Default
+        PS C:\> Install-DbaInstance -SqlInstance sql2017\sqlexpress, server01 -Version 2017 -Feature Default
 
         Install a named SQL Server instance named sqlexpress on sql2017, and a default instance on server01. Automatically generates configuration.ini.
         Default features will be installed.
 
     .Example
-        C:\PS> Install-DbaInstance -Version 2008R2 -SqlInstance sql2017 -ConfigurationFile C:\temp\configuration.ini
+        PS C:\> Install-DbaInstance -Version 2008R2 -SqlInstance sql2017 -ConfigurationFile C:\temp\configuration.ini
 
         Install a default named SQL Server instance on the remote machine, sql2017 and use the local configuration.ini
 
     .Example
-        C:\PS> Install-DbaInstance -Version 2017 -InstancePath G:\SQLServer
+        PS C:\> Install-DbaInstance -Version 2017 -InstancePath G:\SQLServer
 
         Run the installation locally with default settings apart from the application volume, this will be redirected to G:\SQLServer.
 
     .Example
-        C:\PS> $svcAcc = Get-Credential MyDomain\SvcSqlServer
-        C:\PS> Install-DbaInstance -Version 2016 -InstancePath D:\Root -DataPath E: -LogPath L: -PerformVolumeMaintenanceTasks -EngineCredential $svcAcc
+        PS C:\>$svcAcc = Get-Credential MyDomain\SvcSqlServer
+        PS C:\>Install-DbaInstance -Version 2016 -InstancePath D:\Root -DataPath E: -LogPath L: -PerformVolumeMaintenanceTasks -EngineCredential $svcAcc
 
         Install SQL Server 2016 instance into D:\Root drive, set default data folder as E: and default logs folder as L:.
         Perform volume maintenance tasks permission is granted. MyDomain\SvcSqlServer is used as a service account for SqlServer.
 
     .Example
-        C:\PS> $config = @{
+        PS C:\>$config = @{
             AGTSVCSTARTUPTYPE     = "Manual"
             SQLCOLLATION          = "Latin1_General_CI_AS"
             BROWSERSVCSTARTUPTYPE = "Manual"
             FILESTREAMLEVEL       = 1
         }
-        C:\PS> Install-DbaInstance -SqlInstance localhost\v2017:1337 -Version 2017 -Configuration $config
+        PS C:\>Install-DbaInstance -SqlInstance localhost\v2017:1337 -Version 2017 -Configuration $config
 
         Run the installation locally with default settings overriding the value of specific configuration items.
         Instance name will be defined as 'v2017'; TCP port will be changed to 1337 after installation.
@@ -256,7 +256,7 @@ function Install-DbaInstance {
             )
             #Collect config entries from the ini file
             Write-Message -Level Verbose -Message "Reading Ini file from $Path"
-            $config = @{}
+            $config = @{ }
             switch -regex -file $Path {
                 #Comment
                 '^#.*' { continue }
@@ -264,7 +264,7 @@ function Install-DbaInstance {
                 "^\[(.+)\]\s*$" {
                     $section = $matches[1]
                     if (-not $config.$section) {
-                        $config.$section = @{}
+                        $config.$section = @{ }
                     }
                     continue
                 }
@@ -315,7 +315,7 @@ function Install-DbaInstance {
         # defining local vars
         $notifiedCredentials = $false
         $notifiedUnsecure = $false
-        $pathIsNetwork = $Path | Foreach-Object -Begin { $o = @() } -Process { $o += $_ -like '\\*'} -End { $o -contains $true }
+        $pathIsNetwork = $Path | Foreach-Object -Begin { $o = @() } -Process { $o += $_ -like '\\*' } -End { $o -contains $true }
 
         # read component names
         $components = Get-Content -Path $Script:PSModuleRoot\bin\dbatools-sqlinstallationcomponents.json -Raw | ConvertFrom-Json
@@ -377,7 +377,7 @@ function Install-DbaInstance {
         # check if installation path(s) is a network path and try to access it from the local machine
         Write-ProgressHelper -ExcludePercent -Activity "Looking for setup files" -StepNumber 0 -Message "Checking if installation is available locally"
         $isNetworkPath = $true
-        foreach ($p in $Path) { if ($p -notlike '\\*') { $isNetworkPath = $false} }
+        foreach ($p in $Path) { if ($p -notlike '\\*') { $isNetworkPath = $false } }
         if ($isNetworkPath) {
             Write-Message -Level Verbose -Message "Looking for installation files in $($Path) on a local machine"
             try {

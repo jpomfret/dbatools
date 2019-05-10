@@ -39,17 +39,17 @@ function Get-DbaRandomizedDatasetTemplate {
         https://dbatools.io/Get-DbaRandomizedDatasetTemplate
 
     .EXAMPLE
-        Get-DbaRandomizedDatasetTemplate
+        PS C:\> Get-DbaRandomizedDatasetTemplate
 
         Get the templates from the default directory
 
     .EXAMPLE
-        Get-DbaRandomizedDatasetTemplate  -Template Personaldata, Test
+        PS C:\> Get-DbaRandomizedDatasetTemplate  -Template Personaldata, Test
 
         Get the templates from thedefault directory and filter on PersonalData and Test
 
     .EXAMPLE
-        Get-DbaRandomizedDatasetTemplate  -Path C:\DatasetTemplates
+        PS C:\> Get-DbaRandomizedDatasetTemplate  -Path C:\DatasetTemplates
 
         Get the templates from a custom directory
 
@@ -72,7 +72,7 @@ function Get-DbaRandomizedDatasetTemplate {
     }
 
     process {
-        if (Test-FunctionInterrupt) { return}
+        if (Test-FunctionInterrupt) { return }
 
         # Get the templates from the file path
         foreach ($p in $Path) {
