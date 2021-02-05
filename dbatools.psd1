@@ -70,6 +70,7 @@
     # FunctionsToExport specifically helps with AUTO-LOADING so do not remove
     FunctionsToExport      = @(
         'Start-DbaMigration',
+        'New-DbaDbFileGroup',
         'Copy-DbaDatabase',
         'Copy-DbaLogin',
         'Copy-DbaAgentServer',
