@@ -1,4 +1,4 @@
-function New-DbaDbFileGroup {
+function New-DbaDbFile {
     <#
     .SYNOPSIS
         Adds a new filegroup to the specified database.
@@ -58,6 +58,7 @@ function New-DbaDbFileGroup {
         [String[]]$Database,
         [parameter(ValueFromPipeline)]
         [Microsoft.SqlServer.Management.Smo.Database[]]$InputObject,
+        [string[]]$FileGroup,
         [string[]]$Name,
         [switch]$EnableException
     )
@@ -72,24 +73,29 @@ function New-DbaDbFileGroup {
             $InputObject = Get-DbaDatabase -SqlInstance $SqlInstance -SqlCredential $SqlCredential -Database $Database
         }
 
+        if (Test-Bound -Not -ParameterName FileGroup) {
+            Write-Message -Message "No FileGroup specified, defaulting to Primary for $db" -Level Verbose
+            $FileGroup = 'Primary'
+        }
+
         foreach ($db in $InputObject) {
             if ($db.IsAccessible) {
                 Write-Message -Level Verbose -Message "Processing database: $db"
                 $server = $db.Parent
 
-                if ($db.FileGroups | Where-Object { $_.Name -contains $Name }) {
-                    Write-Message -Level Warning -Message "FileGroup $Name already exists in $db"
-                    return
-                }
-                try {
-                    Write-Message -Message "Creating $Name filegroup for $db" -Level Verbose
-                    $fg = New-Object -TypeName Microsoft.SqlServer.Management.Smo.FileGroup -ArgumentList $db, $Name
-                    $fg.Create()
-                } catch {
-                    Stop-Function -Message "Issue creating filegroup $Name for $db" -Target $Database -ErrorRecord $_ -Continue
-                }
+                #if ($db.FileGroups | Where-Object { $_.Name -contains $Name }) {
+                #    Write-Message -Level Warning -Message "FileGroup $Name already exists in $db"
+                #    return
+                #}
+                #try {
+                #    Write-Message -Message "Creating $Name filegroup for $db" -Level Verbose
+                #    $fg = New-Object -TypeName Microsoft.SqlServer.Management.Smo.FileGroup -ArgumentList $db, $Name
+                #    $fg.Create()
+                #} catch {
+                #    Stop-Function -Message "Issue creating filegroup $Name for $db" -Target $Database -ErrorRecord $_ -Continue
+                #}
 
-                Get-DbaDbFileGroup -SqlInstance $server -Database $db.Name -FileGroup $Name
+                Get-DbaDbFile -SqlInstance $server -Database $db.Name # $FileGroup
             } else {
                 Write-Message -Level Verbose -Message "Skipping processing of database: $db as database is not accessible"
             }
