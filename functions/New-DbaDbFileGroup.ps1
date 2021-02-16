@@ -75,7 +75,7 @@ function New-DbaDbFileGroup {
     param ([parameter(ValueFromPipeline)]
         [DbaInstanceParameter[]]$SqlInstance,
         [PSCredential]$SqlCredential,
-        [object[]]$Database,
+        [String]$Database,
         [parameter(ValueFromPipeline)]
         [Microsoft.SqlServer.Management.Smo.Database[]]$InputObject,
         [string[]]$Name,
@@ -88,25 +88,9 @@ function New-DbaDbFileGroup {
             return
         }
 
-        # foreach instance in sqlinstance?
         if (Test-Bound -Not -ParameterName InputObject) {
-            try {
-                $server = Connect-SqlInstance -SqlInstance $SqlInstance -SqlCredential $SqlCredential
-            } catch {
-                Stop-Function -Message "Error occurred while establishing connection to $SqlInstance" -Category ConnectionError -ErrorRecord $_ -Target $SqlInstance -Continue
-            }
-
-            if (Test-Bound -ParameterName Database) {
-                $server.Databases
-                break
-                $InputObject = $server.Databases | Where-Object { $_.IsAccessible -and $_.Name -in $Database }
-            } else {
-                $InputObject = $server.Databases
-            }
             # should Get-DbaDatabase accept a Database object? currently only a name
             $InputObject += Get-DbaDatabase -SqlInstance $SqlInstance -SqlCredential $SqlCredential -Database $Database
-
-            $InputObject += $server.Databases | Where-Object IsAccessible
         }
 
         foreach ($db in $InputObject) {
