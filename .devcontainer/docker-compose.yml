@@ -2,12 +2,7 @@ version: "3.7"
 services:
   dbatools1:
     container_name: "dbatools1"
-    build: .
-    image: dbatools:latest
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123
-      - MSSQL_AGENT_ENABLED=True
+    image: dbatools/sqlinstance
     ports:
       - "1401:1433"
     volumes:
@@ -17,21 +12,13 @@ services:
     depends_on:
       - dbatools1
     container_name: "dbatools2"
-    image: dbatools:latest
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123
-      - MSSQL_AGENT_ENABLED=True
+    image: dbatools/sqlinstance
     ports:
       - "1402:1433"
   dbatools3:
     depends_on:
       - dbatools1
     container_name: "dbatools3"
-    image: dbatools:latest
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123
-      - MSSQL_AGENT_ENABLED=True
+    image: dbatools/sqlinstance
     ports:
       - "1403:1433"
